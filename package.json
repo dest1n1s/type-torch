@@ -17,7 +17,9 @@
     "eslint-config-prettier": "~9.0",
     "eslint-plugin-jest": "~27.2",
     "eslint-plugin-prettier": "^5.0.0",
+    "fs": "^0.0.1-security",
     "jest": "~29.6",
+    "js-yaml": "^4.1.0",
     "nodemon": "^3.0.1",
     "prettier": "~3.0",
     "rimraf": "~5.0",
@@ -36,7 +38,8 @@
     "lint": "eslint --fix . --ext .ts --ext .mts",
     "test": "jest --coverage",
     "prettier": "prettier --config .prettierrc --write .",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "generate:bindings": "tsc && node dist/gen/gen.js"
   },
   "author": "Dest1n1 <dest1nis2022@gmail.com>",
   "license": "Apache-2.0",

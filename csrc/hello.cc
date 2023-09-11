@@ -1,16 +1,15 @@
-#include <napi.h>
-#include <torch/torch.h>
+#include "hello.h"
 
-namespace Demo {
+namespace TypeTorch {
 
-static Napi::External<torch::Tensor> Create(const Napi::CallbackInfo& info) {
+static Napi::External<torch::Tensor> Create(const Napi::CallbackInfo &info) {
   // Napi::Env is the opaque data structure containing the environment in which
   // the request is being run. We will need this env when we want to create any
   // new objects inside of the node.js environment
   Napi::Env env = info.Env();
 
   // Create a C++ level variable
-  torch::Tensor* myTensor = new torch::Tensor(torch::ones({2, 2}));
+  torch::Tensor *myTensor = new torch::Tensor(torch::ones({2, 2}));
 
   // Print the address of the C++ level variable
   printf("C++ level variable address: %p\n", myTensor);
@@ -21,7 +20,7 @@ static Napi::External<torch::Tensor> Create(const Napi::CallbackInfo& info) {
   return Napi::External<torch::Tensor>::New(env, myTensor);
 }
 
-static Napi::Value Get(const Napi::CallbackInfo& info) {
+static Napi::Value Get(const Napi::CallbackInfo &info) {
   // Napi::Env is the opaque data structure containing the environment in which
   // the request is being run. We will need this env when we want to create any
   // new objects inside of the node.js environment
@@ -30,7 +29,7 @@ static Napi::Value Get(const Napi::CallbackInfo& info) {
   // Extract the C++ level variable from the JavaScript wrapper
   Napi::External<torch::Tensor> ext =
       info[0].As<Napi::External<torch::Tensor>>();
-  torch::Tensor* myTensor = ext.Data();
+  torch::Tensor *myTensor = ext.Data();
 
   // Print the address of the C++ level variable
   printf("C++ level variable address: %p\n", myTensor);
@@ -51,11 +50,11 @@ static Napi::Value Get(const Napi::CallbackInfo& info) {
   return arr;
 }
 
-static Napi::Object Init(Napi::Env env, Napi::Object exports) {
+static Napi::Object InitHello(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "create"),
               Napi::Function::New(env, Create));
   exports.Set(Napi::String::New(env, "get"), Napi::Function::New(env, Get));
   return exports;
 }
-NODE_API_MODULE(hello, Init)
-}  // namespace Demo
+
+} // namespace TypeTorch

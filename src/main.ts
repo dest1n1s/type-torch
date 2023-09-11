@@ -1,13 +1,13 @@
 import bindings from 'bindings'
 const addon = bindings('type-torch')
 
-declare class Tensor<Dimensions extends number[]> {}
+declare class CTensor {}
 
-export const create = (): Tensor<[2, 2]> => {
+export const create = (): CTensor => {
   return addon.create()
 }
 
-export const get = <Dimensions extends number[]>(tensor: Tensor<Dimensions>): Dimensions => {
+export const get = (tensor: CTensor) => {
   return addon.get(tensor)
 }
 
