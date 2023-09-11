@@ -8,5 +8,5 @@ Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
   return exports;
 }
 
-NODE_API_MODULE(hello, InitAll)
+NODE_API_MODULE(TypeTorch, InitAll)
 } // namespace TypeTorch

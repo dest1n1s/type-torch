@@ -1,1 +1,2 @@
 /**/*.js
+/src/wrapper/torch_api_generated.ts

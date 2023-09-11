@@ -427,8 +427,9 @@ Napi::External<torch::Tensor> atg__cudnn_init_dropout_state(const Napi::Callback
   double dropout = info__[0].As<Napi::Number>().DoubleValue();
   bool train = info__[1].As<Napi::Boolean>().Value();
   int64_t dropout_seed = info__[2].As<Napi::Number>().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_cudnn_init_dropout_state(dropout, train, dropout_seed, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -1275,8 +1276,9 @@ Napi::External<torch::Tensor> atg_any_out(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_arange(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Scalar *end = info__[0].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::arange(*end, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -1285,8 +1287,9 @@ Napi::External<torch::Tensor> atg_arange_start(const Napi::CallbackInfo &info__)
   Napi::Env env__ = info__.Env();
   torch::Scalar *start = info__[0].As<Napi::External<torch::Scalar>>().Data();
   torch::Scalar *end = info__[1].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::arange(*start, *end, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -1296,8 +1299,9 @@ Napi::External<torch::Tensor> atg_arange_start_step(const Napi::CallbackInfo &in
   torch::Scalar *start = info__[0].As<Napi::External<torch::Scalar>>().Data();
   torch::Scalar *end = info__[1].As<Napi::External<torch::Scalar>>().Data();
   torch::Scalar *step = info__[2].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::arange(*start, *end, *step, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -1686,8 +1690,9 @@ Napi::External<torch::Tensor> atg_baddbmm_(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_bartlett_window(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::bartlett_window(window_length, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -1696,8 +1701,9 @@ Napi::External<torch::Tensor> atg_bartlett_window_periodic(const Napi::CallbackI
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
   bool periodic = info__[1].As<Napi::Boolean>().Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::bartlett_window(window_length, periodic, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -2089,8 +2095,9 @@ Napi::External<torch::Tensor> atg_logical_or_(const Napi::CallbackInfo &info__) 
 Napi::External<torch::Tensor> atg_blackman_window(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::blackman_window(window_length, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -2099,8 +2106,9 @@ Napi::External<torch::Tensor> atg_blackman_window_periodic(const Napi::CallbackI
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
   bool periodic = info__[1].As<Napi::Boolean>().Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::blackman_window(window_length, periodic, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -4856,8 +4864,9 @@ Napi::External<torch::Tensor> atg_empty(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[2].As<Napi::Number>().Int32Value();
   auto output__ = torch::empty(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -4884,8 +4893,9 @@ Napi::External<torch::Tensor> atg_new_empty(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = self->new_empty(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -4916,8 +4926,9 @@ Napi::External<torch::Tensor> atg_new_empty_strided(const Napi::CallbackInfo &in
   int64_t *stride_data = new int64_t[stride_len];
   for (int i = 0; i < stride_len; ++i)
     stride_data[i] = stride_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = self->new_empty_strided(torch::IntArrayRef(size_data, size_len), torch::IntArrayRef(stride_data, stride_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -4949,8 +4960,9 @@ Napi::External<torch::Tensor> atg_new_full(const Napi::CallbackInfo &info__) {
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
   torch::Scalar *fill_value = info__[2].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = self->new_full(torch::IntArrayRef(size_data, size_len), *fill_value, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -4977,8 +4989,9 @@ Napi::External<torch::Tensor> atg_new_zeros(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = self->new_zeros(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5004,8 +5017,9 @@ Napi::External<torch::Tensor> atg_new_ones(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = self->new_ones(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5030,8 +5044,9 @@ Napi::External<torch::Tensor> atg__empty_affine_quantized(const Napi::CallbackIn
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   double scale = info__[2].As<Napi::Number>().DoubleValue();
   int64_t zero_point = info__[3].As<Napi::Number>().Int64Value();
   int memory_format = info__[4].As<Napi::Number>().Int32Value();
@@ -5064,8 +5079,9 @@ Napi::External<torch::Tensor> atg__empty_per_channel_affine_quantized(const Napi
   torch::Tensor *scales = info__[1].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *zero_points = info__[2].As<Napi::External<torch::Tensor>>().Data();
   int64_t axis = info__[3].As<Napi::Number>().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[5].As<Napi::Number>().Int32Value();
   auto output__ = torch::_empty_per_channel_affine_quantized(torch::IntArrayRef(size_data, size_len), *scales, *zero_points, axis, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -5121,8 +5137,9 @@ Napi::External<torch::Tensor> atg_empty_quantized(const Napi::CallbackInfo &info
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
   torch::Tensor *qtensor = info__[1].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[3].As<Napi::Number>().Int32Value();
   auto output__ = torch::empty_quantized(torch::IntArrayRef(size_data, size_len), *qtensor, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -5145,8 +5162,9 @@ Napi::External<torch::Tensor> atg_empty_quantized_out(const Napi::CallbackInfo &
 Napi::External<torch::Tensor> atg_empty_like(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[2].As<Napi::Number>().Int32Value();
   auto output__ = torch::empty_like(*self, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -5173,8 +5191,9 @@ Napi::External<torch::Tensor> atg_empty_strided(const Napi::CallbackInfo &info__
   int64_t *stride_data = new int64_t[stride_len];
   for (int i = 0; i < stride_len; ++i)
     stride_data[i] = stride_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::empty_strided(torch::IntArrayRef(size_data, size_len), torch::IntArrayRef(stride_data, stride_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5330,8 +5349,9 @@ Napi::External<torch::Tensor> atg_expand_as(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_eye(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t n = info__[0].As<Napi::Number>().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::eye(n, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5340,8 +5360,9 @@ Napi::External<torch::Tensor> atg_eye_m(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t n = info__[0].As<Napi::Number>().Int64Value();
   int64_t m = info__[1].As<Napi::Number>().Int64Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::eye(n, m, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5528,8 +5549,9 @@ Napi::External<torch::Tensor> atg_full(const Napi::CallbackInfo &info__) {
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
   torch::Scalar *fill_value = info__[1].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::full(torch::IntArrayRef(size_data, size_len), *fill_value, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5551,8 +5573,9 @@ Napi::External<torch::Tensor> atg_full_like(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
   torch::Scalar *fill_value = info__[1].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[3].As<Napi::Number>().Int32Value();
   auto output__ = torch::full_like(*self, *fill_value, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -5575,8 +5598,9 @@ Napi::External<torch::Tensor> atg_from_file(const Napi::CallbackInfo &info__) {
   bool shared = info__[1].As<Napi::Boolean>().Value();
   bool size_null = info__[2].IsUndefined();
   int64_t size_v = size_null ? 0 : info__[2].As<Napi::Number>().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::from_file(filename, shared, size_null ? c10::nullopt : c10::optional<int64_t>(size_v), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5741,8 +5765,9 @@ Napi::External<torch::Tensor> atg_grid_sampler_3d_out(const Napi::CallbackInfo &
 Napi::External<torch::Tensor> atg_hann_window(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::hann_window(window_length, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5751,8 +5776,9 @@ Napi::External<torch::Tensor> atg_hann_window_periodic(const Napi::CallbackInfo 
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
   bool periodic = info__[1].As<Napi::Boolean>().Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::hann_window(window_length, periodic, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5777,8 +5803,9 @@ Napi::External<torch::Tensor> atg_hann_window_periodic_out(const Napi::CallbackI
 Napi::External<torch::Tensor> atg_hamming_window(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::hamming_window(window_length, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5787,8 +5814,9 @@ Napi::External<torch::Tensor> atg_hamming_window_periodic(const Napi::CallbackIn
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
   bool periodic = info__[1].As<Napi::Boolean>().Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::hamming_window(window_length, periodic, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5798,8 +5826,9 @@ Napi::External<torch::Tensor> atg_hamming_window_periodic_alpha(const Napi::Call
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
   bool periodic = info__[1].As<Napi::Boolean>().Value();
   double alpha = info__[2].As<Napi::Number>().DoubleValue();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::hamming_window(window_length, periodic, alpha, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5810,8 +5839,9 @@ Napi::External<torch::Tensor> atg_hamming_window_periodic_alpha_beta(const Napi:
   bool periodic = info__[1].As<Napi::Boolean>().Value();
   double alpha = info__[2].As<Napi::Number>().DoubleValue();
   double beta = info__[3].As<Napi::Number>().DoubleValue();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::hamming_window(window_length, periodic, alpha, beta, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5857,8 +5887,9 @@ Napi::External<torch::Tensor> atg_hamming_window_periodic_alpha_beta_out(const N
 Napi::External<torch::Tensor> atg_kaiser_window(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::kaiser_window(window_length, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5867,8 +5898,9 @@ Napi::External<torch::Tensor> atg_kaiser_window_periodic(const Napi::CallbackInf
   Napi::Env env__ = info__.Env();
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
   bool periodic = info__[1].As<Napi::Boolean>().Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::kaiser_window(window_length, periodic, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -5878,8 +5910,9 @@ Napi::External<torch::Tensor> atg_kaiser_window_beta(const Napi::CallbackInfo &i
   int64_t window_length = info__[0].As<Napi::Number>().Int64Value();
   bool periodic = info__[1].As<Napi::Boolean>().Value();
   double beta = info__[2].As<Napi::Number>().DoubleValue();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::kaiser_window(window_length, periodic, beta, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -6742,8 +6775,9 @@ Napi::External<torch::Tensor> atg_linspace(const Napi::CallbackInfo &info__) {
   torch::Scalar *start = info__[0].As<Napi::External<torch::Scalar>>().Data();
   torch::Scalar *end = info__[1].As<Napi::External<torch::Scalar>>().Data();
   int64_t steps = info__[2].As<Napi::Number>().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::linspace(*start, *end, steps, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -6953,8 +6987,9 @@ Napi::External<torch::Tensor> atg_logspace(const Napi::CallbackInfo &info__) {
   torch::Scalar *end = info__[1].As<Napi::External<torch::Scalar>>().Data();
   int64_t steps = info__[2].As<Napi::Number>().Int64Value();
   double base = info__[3].As<Napi::Number>().DoubleValue();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::logspace(*start, *end, steps, base, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -9444,8 +9479,9 @@ Napi::External<torch::Tensor> atg_ones(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::ones(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -9465,8 +9501,9 @@ Napi::External<torch::Tensor> atg_ones_out(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_ones_like(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[2].As<Napi::Number>().Int32Value();
   auto output__ = torch::ones_like(*self, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -9840,8 +9877,9 @@ Napi::External<torch::Tensor> atg_deg2rad_(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_scalar_tensor(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Scalar *s = info__[0].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::scalar_tensor(*s, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -9861,8 +9899,9 @@ Napi::External<torch::Tensor> atg_rand(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::rand(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -9882,8 +9921,9 @@ Napi::External<torch::Tensor> atg_rand_out(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_rand_like(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[2].As<Napi::Number>().Int32Value();
   auto output__ = torch::rand_like(*self, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -9906,8 +9946,9 @@ Napi::External<torch::Tensor> atg_randint(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::randint(high, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -9921,8 +9962,9 @@ Napi::External<torch::Tensor> atg_randint_low(const Napi::CallbackInfo &info__) 
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::randint(low, high, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -9958,8 +10000,9 @@ Napi::External<torch::Tensor> atg_randint_like(const Napi::CallbackInfo &info__)
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
   int64_t high = info__[1].As<Napi::Number>().Int64Value();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[3].As<Napi::Number>().Int32Value();
   auto output__ = torch::randint_like(*self, high, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -9970,8 +10013,9 @@ Napi::External<torch::Tensor> atg_randint_like_low_dtype(const Napi::CallbackInf
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
   int64_t low = info__[1].As<Napi::Number>().Int64Value();
   int64_t high = info__[2].As<Napi::Number>().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[4].As<Napi::Number>().Int32Value();
   auto output__ = torch::randint_like(*self, low, high, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -10005,8 +10049,9 @@ Napi::External<torch::Tensor> atg_randn(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::randn(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -10026,8 +10071,9 @@ Napi::External<torch::Tensor> atg_randn_out(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_randn_like(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[2].As<Napi::Number>().Int32Value();
   auto output__ = torch::randn_like(*self, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -10045,8 +10091,9 @@ Napi::External<torch::Tensor> atg_randn_like_out(const Napi::CallbackInfo &info_
 Napi::External<torch::Tensor> atg_randperm(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   int64_t n = info__[0].As<Napi::Number>().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::randperm(n, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -10063,8 +10110,9 @@ Napi::External<torch::Tensor> atg_range(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Scalar *start = info__[0].As<Napi::External<torch::Scalar>>().Data();
   torch::Scalar *end = info__[1].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::range(*start, *end, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -10074,8 +10122,9 @@ Napi::External<torch::Tensor> atg_range_step(const Napi::CallbackInfo &info__) {
   torch::Scalar *start = info__[0].As<Napi::External<torch::Scalar>>().Data();
   torch::Scalar *end = info__[1].As<Napi::External<torch::Scalar>>().Data();
   torch::Scalar *step = info__[2].As<Napi::External<torch::Scalar>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::range(*start, *end, *step, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -12776,8 +12825,9 @@ Napi::External<torch::Tensor> atg__efficientzerotensor(const Napi::CallbackInfo 
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_efficientzerotensor(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -12801,8 +12851,9 @@ Napi::External<torch::Tensor> atg_zeros(const Napi::CallbackInfo &info__) {
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::zeros(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -12822,8 +12873,9 @@ Napi::External<torch::Tensor> atg_zeros_out(const Napi::CallbackInfo &info__) {
 Napi::External<torch::Tensor> atg_zeros_like(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   int memory_format = info__[2].As<Napi::Number>().Int32Value();
   auto output__ = torch::zeros_like(*self, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), (at::MemoryFormat)memory_format);
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
@@ -13757,8 +13809,9 @@ Napi::External<torch::Tensor> atg_sparse_compressed_tensor(const Napi::CallbackI
   torch::Tensor *compressed_indices = info__[0].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *plain_indices = info__[1].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *values = info__[2].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_compressed_tensor(*compressed_indices, *plain_indices, *values, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13773,8 +13826,9 @@ Napi::External<torch::Tensor> atg_sparse_compressed_tensor_comp_plain_value_size
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_compressed_tensor(*compressed_indices, *plain_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13784,8 +13838,9 @@ Napi::External<torch::Tensor> atg_sparse_csr_tensor(const Napi::CallbackInfo &in
   torch::Tensor *crow_indices = info__[0].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *col_indices = info__[1].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *values = info__[2].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_csr_tensor(*crow_indices, *col_indices, *values, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13800,8 +13855,9 @@ Napi::External<torch::Tensor> atg_sparse_csr_tensor_crow_col_value_size(const Na
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_csr_tensor(*crow_indices, *col_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13811,8 +13867,9 @@ Napi::External<torch::Tensor> atg_sparse_csc_tensor(const Napi::CallbackInfo &in
   torch::Tensor *ccol_indices = info__[0].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *row_indices = info__[1].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *values = info__[2].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_csc_tensor(*ccol_indices, *row_indices, *values, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13827,8 +13884,9 @@ Napi::External<torch::Tensor> atg_sparse_csc_tensor_ccol_row_value_size(const Na
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_csc_tensor(*ccol_indices, *row_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13838,8 +13896,9 @@ Napi::External<torch::Tensor> atg_sparse_bsr_tensor(const Napi::CallbackInfo &in
   torch::Tensor *crow_indices = info__[0].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *col_indices = info__[1].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *values = info__[2].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_bsr_tensor(*crow_indices, *col_indices, *values, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13854,8 +13913,9 @@ Napi::External<torch::Tensor> atg_sparse_bsr_tensor_crow_col_value_size(const Na
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_bsr_tensor(*crow_indices, *col_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13865,8 +13925,9 @@ Napi::External<torch::Tensor> atg_sparse_bsc_tensor(const Napi::CallbackInfo &in
   torch::Tensor *ccol_indices = info__[0].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *row_indices = info__[1].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *values = info__[2].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_bsc_tensor(*ccol_indices, *row_indices, *values, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13881,8 +13942,9 @@ Napi::External<torch::Tensor> atg_sparse_bsc_tensor_ccol_row_value_size(const Na
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_bsc_tensor(*ccol_indices, *row_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13897,8 +13959,9 @@ Napi::External<torch::Tensor> atg__sparse_compressed_tensor_unsafe(const Napi::C
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_compressed_tensor_unsafe(*compressed_indices, *plain_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13913,8 +13976,9 @@ Napi::External<torch::Tensor> atg__sparse_csr_tensor_unsafe(const Napi::Callback
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_csr_tensor_unsafe(*crow_indices, *col_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13929,8 +13993,9 @@ Napi::External<torch::Tensor> atg__sparse_csc_tensor_unsafe(const Napi::Callback
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_csc_tensor_unsafe(*ccol_indices, *row_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13945,8 +14010,9 @@ Napi::External<torch::Tensor> atg__sparse_bsr_tensor_unsafe(const Napi::Callback
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_bsr_tensor_unsafe(*crow_indices, *col_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13961,8 +14027,9 @@ Napi::External<torch::Tensor> atg__sparse_bsc_tensor_unsafe(const Napi::Callback
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[4].As<Napi::Number>().Int32Value();
-  int options_device = info__[5].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[4].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_bsc_tensor_unsafe(*ccol_indices, *row_indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13974,8 +14041,9 @@ Napi::External<torch::Tensor> atg_sparse_coo_tensor(const Napi::CallbackInfo &in
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_coo_tensor(torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13984,8 +14052,9 @@ Napi::External<torch::Tensor> atg_sparse_coo_tensor_indices(const Napi::Callback
   Napi::Env env__ = info__.Env();
   torch::Tensor *indices = info__[0].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *values = info__[1].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_coo_tensor(*indices, *values, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -13999,8 +14068,9 @@ Napi::External<torch::Tensor> atg_sparse_coo_tensor_indices_size(const Napi::Cal
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::sparse_coo_tensor(*indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -14026,8 +14096,9 @@ Napi::External<torch::Tensor> atg__sparse_coo_tensor_unsafe(const Napi::Callback
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_coo_tensor_unsafe(*indices, *values, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -14107,8 +14178,9 @@ Napi::External<torch::Tensor> atg__sparse_coo_tensor_with_dims(const Napi::Callb
   int64_t *size_data = new int64_t[size_len];
   for (int i = 0; i < size_len; ++i)
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_coo_tensor_with_dims(sparse_dim, dense_dim, torch::IntArrayRef(size_data, size_len), at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -14138,8 +14210,9 @@ Napi::External<torch::Tensor> atg__sparse_coo_tensor_with_dims_and_tensors(const
     size_data[i] = size_array__.Get(i).ToNumber().Int64Value();
   torch::Tensor *indices = info__[3].As<Napi::External<torch::Tensor>>().Data();
   torch::Tensor *values = info__[4].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[5].As<Napi::Number>().Int32Value();
-  int options_device = info__[6].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[5].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::_sparse_coo_tensor_with_dims_and_tensors(sparse_dim, dense_dim, torch::IntArrayRef(size_data, size_len), *indices, *values, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -15243,8 +15316,9 @@ Napi::External<torch::Tensor> atg__autocast_to_full_precision(const Napi::Callba
 Napi::External<torch::Tensor> atg__to_copy(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   bool non_blocking = info__[2].As<Napi::Boolean>().Value();
   int memory_format = info__[3].As<Napi::Number>().Int32Value();
   auto output__ = torch::_to_copy(*self, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)), non_blocking, (at::MemoryFormat)memory_format);
@@ -15264,8 +15338,9 @@ Napi::External<torch::Tensor> atg__to_copy_out(const Napi::CallbackInfo &info__)
 Napi::External<torch::Tensor> atg_to(const Napi::CallbackInfo &info__) {
   Napi::Env env__ = info__.Env();
   torch::Tensor *self = info__[0].As<Napi::External<torch::Tensor>>().Data();
-  int options_kind = info__[1].As<Napi::Number>().Int32Value();
-  int options_device = info__[2].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[1].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   bool non_blocking = info__[2].As<Napi::Boolean>().Value();
   bool copy = info__[3].As<Napi::Boolean>().Value();
   int memory_format = info__[4].As<Napi::Number>().Int32Value();
@@ -17151,8 +17226,9 @@ Napi::External<torch::Tensor> atg_tril_indices(const Napi::CallbackInfo &info__)
   int64_t row = info__[0].As<Napi::Number>().Int64Value();
   int64_t col = info__[1].As<Napi::Number>().Int64Value();
   int64_t offset = info__[2].As<Napi::Number>().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::tril_indices(row, col, offset, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -17172,8 +17248,9 @@ Napi::External<torch::Tensor> atg_triu_indices(const Napi::CallbackInfo &info__)
   int64_t row = info__[0].As<Napi::Number>().Int64Value();
   int64_t col = info__[1].As<Napi::Number>().Int64Value();
   int64_t offset = info__[2].As<Napi::Number>().Int64Value();
-  int options_kind = info__[3].As<Napi::Number>().Int32Value();
-  int options_device = info__[4].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[3].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::triu_indices(row, col, offset, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -24992,8 +25069,9 @@ Napi::External<torch::Tensor> atg_fft_fftfreq(const Napi::CallbackInfo &info__) 
   Napi::Env env__ = info__.Env();
   int64_t n = info__[0].As<Napi::Number>().Int64Value();
   double d = info__[1].As<Napi::Number>().DoubleValue();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::fft_fftfreq(n, d, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
@@ -25011,8 +25089,9 @@ Napi::External<torch::Tensor> atg_fft_rfftfreq(const Napi::CallbackInfo &info__)
   Napi::Env env__ = info__.Env();
   int64_t n = info__[0].As<Napi::Number>().Int64Value();
   double d = info__[1].As<Napi::Number>().DoubleValue();
-  int options_kind = info__[2].As<Napi::Number>().Int32Value();
-  int options_device = info__[3].As<Napi::Number>().Int32Value();
+  Napi::Object options_obj__ = info__[2].As<Napi::Object>();
+  int options_device = options_obj__.Get("device").ToNumber().Int32Value();
+  int options_kind = options_obj__.Get("dtype").ToNumber().Int32Value();
   auto output__ = torch::fft_rfftfreq(n, d, at::device(device_of_int(options_device)).dtype(at::ScalarType(options_kind)));
   return Napi::External<torch::Tensor>::New(env__, new torch::Tensor(output__));
 }
