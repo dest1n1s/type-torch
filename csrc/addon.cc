@@ -2,7 +2,7 @@
 #include "torch_api_generated.h"
 
 namespace TypeTorch {
-static Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
+Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
   InitTypeTorchGenerated(env, exports);
   InitHello(env, exports);
   return exports;

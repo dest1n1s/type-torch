@@ -471,8 +471,8 @@ const writeCpp = (funcs: Record<string, Func>, filename: string, directory: stri
   ph('namespace TypeTorch {')
   ph('')
   Object.entries(funcs).forEach(([exportedName, func]) => {
-    pc(`static ${getCReturn(func)} atg_${exportedName}(const Napi::CallbackInfo &info__) {`)
-    ph(`static ${getCReturn(func)} atg_${exportedName}(const Napi::CallbackInfo &info__);`)
+    pc(`${getCReturn(func)} atg_${exportedName}(const Napi::CallbackInfo &info__) {`)
+    ph(`${getCReturn(func)} atg_${exportedName}(const Napi::CallbackInfo &info__);`)
     pc(`  Napi::Env env__ = info__.Env();`)
     func.args.forEach((arg, index) => {
       const extractedCTypeArg = getExtractedCTypeArg(arg, index)
@@ -509,8 +509,8 @@ const writeCpp = (funcs: Record<string, Func>, filename: string, directory: stri
     pc('}')
     pc('')
   })
-  pc('static Napi::Object InitTypeTorchGenerated(Napi::Env env__, Napi::Object exports) {')
-  ph('static Napi::Object InitTypeTorchGenerated(Napi::Env env__, Napi::Object exports);')
+  pc('Napi::Object InitTypeTorchGenerated(Napi::Env env__, Napi::Object exports) {')
+  ph('Napi::Object InitTypeTorchGenerated(Napi::Env env__, Napi::Object exports);')
   Object.keys(funcs).forEach((exportedName) => {
     pc(`  exports.Set("atg_${exportedName}", Napi::Function::New(env__, atg_${exportedName}));`)
   })

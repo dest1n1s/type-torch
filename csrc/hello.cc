@@ -2,7 +2,7 @@
 
 namespace TypeTorch {
 
-static Napi::External<torch::Tensor> Create(const Napi::CallbackInfo &info) {
+Napi::External<torch::Tensor> Create(const Napi::CallbackInfo &info) {
   // Napi::Env is the opaque data structure containing the environment in which
   // the request is being run. We will need this env when we want to create any
   // new objects inside of the node.js environment
@@ -20,7 +20,7 @@ static Napi::External<torch::Tensor> Create(const Napi::CallbackInfo &info) {
   return Napi::External<torch::Tensor>::New(env, myTensor);
 }
 
-static Napi::Value Get(const Napi::CallbackInfo &info) {
+Napi::Value Get(const Napi::CallbackInfo &info) {
   // Napi::Env is the opaque data structure containing the environment in which
   // the request is being run. We will need this env when we want to create any
   // new objects inside of the node.js environment
@@ -50,7 +50,7 @@ static Napi::Value Get(const Napi::CallbackInfo &info) {
   return arr;
 }
 
-static Napi::Object InitHello(Napi::Env env, Napi::Object exports) {
+Napi::Object InitHello(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "create"),
               Napi::Function::New(env, Create));
   exports.Set(Napi::String::New(env, "get"), Napi::Function::New(env, Get));
