@@ -25,6 +25,7 @@
     "rimraf": "~5.0",
     "ts-api-utils": "~1.0",
     "ts-jest": "~29.1",
+    "type-plus": "^7.6.0",
     "typescript": "~5.2"
   },
   "scripts": {
